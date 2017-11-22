@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd 
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"
+	xmlns:context="http://www.springframework.org/schema/context">
+
+<context:annotation-config/>
+<context:component-scan base-package="com.ketam.tutorials.SpringDemo"></context:component-scan>
+<bean id="lifecycle" class="com.ketam.tutorials.SpringDemo.LifeCycleDemo" >
+
+<constructor-arg value="String construtor agr"/>
+<property name="messageS" value="String setter agr"></property>
+
+
+</bean>
+
+<bean id="bpp" class="com.ketam.tutorials.SpringDemo.DisplayBeanNameBeanPostProcessor"></bean>
+
+<bean class="com.ketam.tutorials.SpringDemo.MyBeanFactoryPP"></bean>
+<bean id="parenttriangle" abstract="true" >
+<property name="height" value="100"></property>
+</bean>
+<bean id="triangle" class="com.ketam.tutorials.SpringDemo.Triangle" parent="parenttriangle">
+ <property name="type" value="Equilateral"></property>
+<property name="pointA" ref="point1"></property>
+
+</bean>
+
+<bean name="point1,alias2" class="com.ketam.tutorials.SpringDemo.Point">
+<constructor-arg value="0"/>
+<constructor-arg value="0"/>
+</bean>
+
+<bean id="point" class="com.ketam.tutorials.SpringDemo.DrawingApp"></bean>
+<bean id="point2" class="com.ketam.tutorials.SpringDemo.Point">
+<qualifier value=""></qualifier>
+<constructor-arg value="012"/>
+<constructor-arg value="340"/>
+</bean>
+<bean id="pointB" class="com.ketam.tutorials.SpringDemo.Point">
+<constructor-arg value="912"/>
+<constructor-arg value="940"/>
+</bean>
+<alias name="alias2" alias="pp" />
+
+<bean id="singletonBean" class="com.ketam.tutorials.SpringDemo.SingletonBean">
+
+<lookup-method bean="prototypeBean" name="getPrototypeBean"/>
+</bean>
+<bean id="singletonBeanPT" class="com.ketam.tutorials.SpringDemo.SingletonBeanWithApplicationContextAware"/>
+<bean id="prototypeBean" class="com.ketam.tutorials.SpringDemo.PrototypeBean" scope="prototype">
+<property name="msg" value="msg property"></property>
+</bean>
+
+
+<bean class="org.springframework.beans.factory.annotation.RequiredAnnotationBeanPostProcessor"></bean>
+
+<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+
+<property name="basename" value="mymessage"></property>
+</bean>
+
+</beans>
